@@ -68,7 +68,11 @@ class Dev(Configuration):
         'rest_framework',
         'rest_framework.authtoken',
         'django_filters',
+        'versatileimagefield',
     ]
+
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
 
     MIDDLEWARE = [
         'debug_toolbar.middleware.DebugToolbarMiddleware',

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
+from versatileimagefield.fields import VersatileImageField, PPOIField
 
 class Tag(models.Model):
   value = models.TextField(max_length=100, unique=True)
@@ -14,6 +15,10 @@ class Tag(models.Model):
     ordering = ["value"]
 
 class Comment(models.Model):
+  ppoi = PPOIField(null=True, blank=True)
+  hero_image = VersatileImageField(
+      upload_to="hero_images", ppoi_field="ppoi", null=True, blank=True
+  )
   creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   content = models.TextField()
   content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
