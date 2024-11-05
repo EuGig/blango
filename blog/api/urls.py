@@ -6,6 +6,7 @@ import os
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -26,6 +27,8 @@ urlpatterns = [
     path("token-auth/", views.obtain_auth_token),
     path("users/<str:email>", UserDetail.as_view(), name="api_user_detail"),
     path("", include(router.urls)),
+    path("jwt/", TokenObtainPairView.as_view(), name="jwt_obtain_pair"),
+    path("jwt/refresh/", TokenRefreshView.as_view(), name="jwt_refresh"),
     path(
         "posts/by-time/<str:period_name>/",
         PostViewSet.as_view({"get": "list"}),
